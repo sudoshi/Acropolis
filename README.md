@@ -2,6 +2,8 @@
 
 Acropolis is a comprehensive data platform that combines multiple open-source tools for data management, workflow automation, visualization, and security. This Docker-based stack provides a production-ready environment with proper networking, authentication, and web access through virtual hosts.
 
+> Also described as: Set of Server Utilities for Container, User, Process, and Security Management
+
 ## Architecture Overview
 
 ![Acropolis Architecture](https://via.placeholder.com/800x400?text=Acropolis+Architecture+Diagram)
