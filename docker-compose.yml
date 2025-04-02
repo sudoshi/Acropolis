@@ -1,8 +1,6 @@
 # Master Docker Compose file for the Acropolis project
 # This file orchestrates the startup of all services.
 
-version: '3.8' # Version supporting 'include'
-
 networks:
   acropolis_network:
     name: acropolis_network
@@ -17,7 +15,8 @@ include:
   # Adjust the list of files based on the exact Datahub setup needed (e.g., with/without neo4j)
   - path:
       - ./datahub/docker/docker-compose.yml
-      # Example: Include postgres override if needed
+      - ./datahub/docker/docker-compose.override.yml # Include the default override for mysql image
+      # Example: Include postgres override if needed (REMOVE override.yml above if using this)
       # - ./datahub/docker/docker-compose.postgres.override.yml
       # Example: Include specific profile if needed (e.g., without neo4j)
       # - ./datahub/docker/docker-compose-without-neo4j.yml
