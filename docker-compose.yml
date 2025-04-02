@@ -1,0 +1,37 @@
+# Master Docker Compose file for the Acropolis project
+# This file orchestrates the startup of all services.
+
+version: '3.8' # Version supporting 'include'
+
+networks:
+  acropolis_network:
+    name: acropolis_network
+    external: true # Assumes the network was already created
+
+# Include configurations from sub-projects
+include:
+  - path: ./authentik/docker-compose.yml
+    # project_directory: ./authentik # Optional: sets working dir for the included file
+
+  # For Datahub, include base, relevant overrides (e.g., postgres), and the virtualhost override
+  # Adjust the list of files based on the exact Datahub setup needed (e.g., with/without neo4j)
+  - path:
+      - ./datahub/docker/docker-compose.yml
+      # Example: Include postgres override if needed
+      # - ./datahub/docker/docker-compose.postgres.override.yml
+      # Example: Include specific profile if needed (e.g., without neo4j)
+      # - ./datahub/docker/docker-compose-without-neo4j.yml
+      - ./datahub/docker/docker-compose.virtualhost.yml # The one we modified
+    project_directory: ./datahub/docker # Set working directory for Datahub compose files
+
+  - path: ./n8n/docker-compose.yml
+    project_directory: ./n8n
+
+  - path: ./portainer/docker-compose.yaml
+    project_directory: ./portainer
+
+  - path: ./security-monitor/docker-compose.yml
+    project_directory: ./security-monitor
+
+  - path: ./superset/docker-compose-non-dev.yml # Use the non-dev version
+    project_directory: ./superset
