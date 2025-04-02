@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: always
+    environment:
+      # Set timezone - adjust as needed
+      - TZ=America/New_York
+      # Optional: Define a custom subdomain if needed later for webhook URLs, etc.
+      # - WEBHOOK_URL=https://n8n.acumenus.net/
+    # Port 5678 is the default internal port for n8n
+    # We will remove the 'ports' mapping later when using the shared network
+    # ports:
+    #   - 5678:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - default
+      - acropolis_network
+
+volumes:
+  n8n_data:
+    external: false # Or true if you want to manage it outside this compose file
+
+networks:
+  acropolis_network:
+    external: true

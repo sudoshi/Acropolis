@@ -1,0 +1,7 @@
+# Ignore top-level project directories
+authentik/
+datahub/
+ohif-orthanc/
+portainer/
+security-monitor/
+superset/
